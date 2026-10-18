@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="urn:hl7-org:v3">
+  <id root="doc-absent"/>
+  <setId root="set-absent"/>
+  <versionNumber value="3"/>
+  <effectiveTime value="20191121"/>
+  <author>
+    <assignedEntity>
+      <representedOrganization>
+        <id extension="777777777"/>
+        <name>Proficient Rx</name>
+      </representedOrganization>
+    </assignedEntity>
+  </author>
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <code code="34089-3" codeSystem="2.16.840.1.113883.6.1"/>
+          <text>Placeholder section with no phrase key.</text>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</document>

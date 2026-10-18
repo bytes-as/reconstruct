@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="urn:hl7-org:v3">
+  <id root="doc-uncoded"/>
+  <setId root="set-uncoded"/>
+  <versionNumber value="22"/>
+  <effectiveTime value="20251219"/>
+  <author>
+    <assignedEntity>
+      <representedOrganization>
+        <id extension="888888888"/>
+        <name>AvKARE</name>
+      </representedOrganization>
+    </assignedEntity>
+  </author>
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <code code="34089-3" codeSystem="2.16.840.1.113883.6.1"/>
+          <text>Placeholder. WARNING: SERIOUS NEUROPSYCHIATRIC EVENTS</text>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</document>
