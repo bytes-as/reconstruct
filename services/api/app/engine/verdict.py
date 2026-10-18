@@ -1,5 +1,7 @@
 """Landed verdict. The class string comes from V4."""
 
+from datetime import date
+
 from app.engine.identity import identify
 from app.graph import queries
 from app.graph.db import ro_query
@@ -58,8 +60,9 @@ def decide(
     graph: str = "hub",
     grace_days: int = 30,
 ) -> dict:
-    as_of_d = to_d(as_of)
-    found = identify(ndc, as_of_d or 0, graph)
+    as_of_d = to_d(as_of) or 0
+    replay = as_of_d < (to_d(date.today().isoformat()) or 0)
+    found = identify(ndc, as_of_d, graph)
     base = {"ndc": ndc, "disclaimer": DISCLAIMER, "as_of": as_of}
     if found is None:
         return {**base, "verdict": "UNKNOWN", "reason": "NDC_NOT_FOUND"}
@@ -82,11 +85,11 @@ def decide(
         }
     results = []
     for fact in facts:
-        results.append(_one(found, fact, as_of_d or 0, strict, graph, grace_days, as_of))
+        results.append(_one(found, fact, as_of_d, strict, graph, grace_days, replay))
     return {**base, "product_ndc": found["product_ndc"], "results": results}
 
 
-def _one(found, fact, as_of_d, strict, graph, grace_days, as_of) -> dict:
+def _one(found, fact, as_of_d, strict, graph, grace_days, replay: bool) -> dict:
     scope_rows = _rows(
         ro_query(
             graph,
@@ -114,10 +117,20 @@ def _one(found, fact, as_of_d, strict, graph, grace_days, as_of) -> dict:
         return outcome
     if linked:
         outcome["scope"] = {"path": linked[0]["path"], "rels": linked[0]["rels"]}
-    if not found["listing_active"]:
+    set_id = found["record_sets"][0] if found["record_sets"] else None
+    if replay:
+        outcome["replay"] = True
+        outcome["gate_skipped"] = True
+        if set_id is None and len(found["all_sets"]) == 1:
+            set_id = found["all_sets"][0]
+    elif not found["listing_active"]:
         outcome["verdict"] = "NOT_ASSESSED_INACTIVE_LISTING"
         return outcome
-    if not found["record_sets"]:
+    elif not found["record_sets"]:
+        outcome["verdict"] = "UNKNOWN"
+        outcome["reason"] = "LABEL_OF_RECORD_NOT_INGESTED"
+        return outcome
+    if set_id is None:
         outcome["verdict"] = "UNKNOWN"
         outcome["reason"] = "LABEL_OF_RECORD_NOT_INGESTED"
         return outcome
@@ -127,7 +140,7 @@ def _one(found, fact, as_of_d, strict, graph, grace_days, as_of) -> dict:
             queries.V4,
             {
                 "fact_id": fact["fact_id"],
-                "set_id": found["record_sets"][0],
+                "set_id": set_id,
                 "as_of_d": as_of_d,
                 "min_tier": 2 if strict else 1,
                 "grace_days": grace_days,
@@ -147,6 +160,38 @@ def _one(found, fact, as_of_d, strict, graph, grace_days, as_of) -> dict:
     if row["verdict"] == "UNKNOWN":
         outcome["reason"] = "NOT_CHECKED"
     return outcome
+
+
+def census(
+    graph: str,
+    fact_id: str = "montelukast_bw_2020",
+    as_of_d: int = 20742,
+    grace_days: int = 30,
+) -> dict[str, int]:
+    rows = ro_query(graph, queries.D1, {"fact_id": fact_id, "as_of_d": as_of_d, "min_tier": 1})
+    counts: dict[str, int] = {}
+    seen: set[str] = set()
+    for row in rows.result_set:
+        set_id = row[0]
+        if not set_id or set_id in seen:
+            continue
+        seen.add(set_id)
+        timeline = ro_query(
+            graph,
+            queries.V4,
+            {
+                "fact_id": fact_id,
+                "set_id": set_id,
+                "as_of_d": as_of_d,
+                "min_tier": 1,
+                "grace_days": grace_days,
+            },
+        )
+        if not timeline.result_set:
+            continue
+        verdict = timeline.result_set[0][-1]
+        counts[verdict] = counts.get(verdict, 0) + 1
+    return counts
 
 
 def _scope_complete(found: dict, fact: dict, graph: str) -> bool:
