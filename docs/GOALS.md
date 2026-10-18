@@ -26,7 +26,7 @@ Golden expectations below come from FX loaded through the I-queries and run on F
 - [ ] **G015** Railway services `falkordb` (private networking, volume, `requirepass`) and `api` deployed; Vercel project for `apps/web`. **Accept:** public `/api/health` green from the Vercel page. **Verify:** open the Vercel URL.
 - [x] **G016** `app/graph/fixture.py` loads FX into a named graph through the I-queries in the order of FX `_readme` (I1, I2, I3, I4, I5, I6, I7, I8, I9, I11, I12, I10, I13); `make fixture GRAPH=hub_test`. **Accept:** counts LabelSet 71, LabelVersion 388, Product 100, Package 275, Application 28, CHECKED 230, SOURCED_FROM 45, REFERENCES 25, `label_of_record = true` on 69 sets. **Verify:** `pytest tests/test_fixture_load.py`. Done 18 Oct 2026.
 - [x] **G017** `.env.example` matches `app/config.py` exactly (a test compares the variable lists). **Verify:** `pytest tests/test_env_example.py`. Done 18 Oct 2026.
-- [ ] **G018** `Makefile` targets: `up`, `down`, `test`, `fixture`, `smoke`, `eval`, `seed` (re-seeds tenant graphs only), `reset-tenants`, `export`. **Accept:** each target runs. **Verify:** run each.
+- [x] **G018** `Makefile` targets: `up`, `down`, `test`, `fixture`, `smoke`, `eval`, `seed` (re-seeds tenant graphs only), `reset-tenants`, `export`. **Accept:** each target runs. **Verify:** run each. Done 18 Oct 2026. Each target exited 0. Local smoke used `API_URL=http://localhost:8010`. `make eval` prints that scoring is not wired yet.
 - [ ] **G019** Lint and format: ruff + black for Python, eslint + prettier for web, in CI. **Verify:** CI green.
 
 ## 2. Sources and ingest (M2)

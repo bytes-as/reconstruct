@@ -1,15 +1,28 @@
 .PHONY: up down test fixture smoke eval seed reset-tenants export
 
+API_IMAGE ?= landfall-api:g003
+API_URL ?= http://localhost:8000
+GRAPH ?= hub_test
+
 up:
-	@echo "scaffold: implemented in a later goal"
+	docker compose up -d --build
 
 down:
-	@echo "scaffold: implemented in a later goal"
+	docker compose down
 
 test:
-	@echo "scaffold: implemented in a later goal"
+	docker run --rm --network landfall_default \
+	  -e FALKORDB_HOST=falkordb \
+	  -e FALKORDB_PORT=6379 \
+	  -e ADMIN_TOKEN=test-admin-token \
+	  -e PUBLISHER_SALT=test-publisher-salt \
+	  -e LANDFALL_FIXTURE=/repo/data/fixtures/hub_montelukast.json \
+	  -v $(CURDIR):/repo \
+	  -v $(CURDIR)/services/api/app:/app/app \
+	  -v $(CURDIR)/services/api/tests:/app/tests \
+	  -w /app \
+	  $(API_IMAGE) pytest tests -q
 
-GRAPH ?= hub_test
 fixture:
 	docker run --rm --network landfall_default \
 	  --env-file .env \
@@ -19,19 +32,33 @@ fixture:
 	  -e LANDFALL_FIXTURE=/repo/data/fixtures/hub_montelukast.json \
 	  -v $(CURDIR):/repo \
 	  -v $(CURDIR)/services/api/app:/app/app \
-	  landfall-api:g003 python -m app.graph.fixture
+	  $(API_IMAGE) python -m app.graph.fixture
 
 smoke:
-	@echo "scaffold: implemented in a later goal"
+	API_URL=$(API_URL) scripts/smoke.sh
 
 eval:
-	@echo "scaffold: implemented in a later goal"
+	python3 eval/run_eval.py
 
 seed:
-	@echo "scaffold: implemented in a later goal"
+	docker run --rm --network landfall_default \
+	  --env-file .env \
+	  -e FALKORDB_HOST=falkordb \
+	  -e FALKORDB_PORT=6379 \
+	  -v $(CURDIR):/repo \
+	  -v $(CURDIR)/services/api/app:/app/app \
+	  -w /app \
+	  $(API_IMAGE) python -m app.graph.tenants seed
 
 reset-tenants:
-	@echo "scaffold: implemented in a later goal"
+	docker run --rm --network landfall_default \
+	  --env-file .env \
+	  -e FALKORDB_HOST=falkordb \
+	  -e FALKORDB_PORT=6379 \
+	  -v $(CURDIR):/repo \
+	  -v $(CURDIR)/services/api/app:/app/app \
+	  -w /app \
+	  $(API_IMAGE) python -m app.graph.tenants reset
 
 export:
-	@echo "scaffold: implemented in a later goal"
+	scripts/export.sh

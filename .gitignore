@@ -27,6 +27,9 @@ out/
 # Local port remap while modelbrain holds 3000 and 8000
 docker-compose.override.yml
 
+# Graph dumps from `make export`
+exports/*
+
 # OS / editor
 .DS_Store
 *.swp
