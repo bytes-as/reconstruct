@@ -7,7 +7,19 @@ dependencies = [
   "fastapi",
   "uvicorn",
   "pydantic>=2",
+  "httpx",
+  "lxml",
   "falkordb",
+  "apscheduler",
+  "slowapi",
+  "mcp>=1.10,<2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-asyncio",
+  "respx",
 ]
 
 [build-system]
@@ -17,3 +29,7 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["app*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
