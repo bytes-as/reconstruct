@@ -20,6 +20,8 @@ dev = [
   "pytest",
   "pytest-asyncio",
   "respx",
+  "ruff",
+  "black",
 ]
 
 [build-system]
@@ -33,3 +35,18 @@ include = ["app*"]
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.ruff.lint.per-file-ignores]
+"app/graph/queries.py" = ["E501"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+extend-exclude = "app/graph/queries.py"

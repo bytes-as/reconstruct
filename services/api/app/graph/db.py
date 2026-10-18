@@ -22,7 +22,12 @@ def connect_once() -> FalkorDB:
     return FalkorDB(host=settings.falkordb_host, port=settings.falkordb_port, password=password)
 
 
-def retry(operation: Callable, attempts: int = 10, delay_s: float = 2, sleeper: Callable[[float], None] = time.sleep):
+def retry(
+    operation: Callable,
+    attempts: int = 10,
+    delay_s: float = 2,
+    sleeper: Callable[[float], None] = time.sleep,
+):
     last: Exception | None = None
     for attempt in range(attempts):
         try:
@@ -86,7 +91,9 @@ def hub_counts(db: FalkorDB, graphs: list[str]) -> dict[str, int]:
         return dict(_EMPTY_HUB)
     return {
         "label_sets": _count(db, "MATCH (s:LabelSet) RETURN count(s)"),
-        "labels_of_record": _count(db, "MATCH (s:LabelSet {label_of_record: true}) RETURN count(s)"),
+        "labels_of_record": _count(
+            db, "MATCH (s:LabelSet {label_of_record: true}) RETURN count(s)"
+        ),
         "versions": _count(db, "MATCH (v:LabelVersion) RETURN count(v)"),
         "checks": _count(db, "MATCH ()-[c:CHECKED]->() RETURN count(c)"),
         "facts_active": _count(db, "MATCH (f:SafetyFact {status: 'ACTIVE'}) RETURN count(f)"),

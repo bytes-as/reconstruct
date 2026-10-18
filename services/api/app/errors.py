@@ -34,7 +34,9 @@ CODE_BY_STATUS = {
 
 
 class ApiError(Exception):
-    def __init__(self, code: str, message: str, hint: str | None = None, retry_after_s: int | None = None):
+    def __init__(
+        self, code: str, message: str, hint: str | None = None, retry_after_s: int | None = None
+    ):
         self.code = code
         self.message = message
         self.hint = hint
@@ -42,8 +44,12 @@ class ApiError(Exception):
         super().__init__(message)
 
 
-def envelope(code: str, message: str, hint: str | None = None, retry_after_s: int | None = None) -> dict:
-    return {"error": {"code": code, "message": message, "hint": hint, "retry_after_s": retry_after_s}}
+def envelope(
+    code: str, message: str, hint: str | None = None, retry_after_s: int | None = None
+) -> dict:
+    return {
+        "error": {"code": code, "message": message, "hint": hint, "retry_after_s": retry_after_s}
+    }
 
 
 def _request_id(request: Request) -> str | None:

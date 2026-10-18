@@ -7,6 +7,7 @@ import pytest
 
 from app.config import ENV_KEYS, ConfigError, get_settings
 
+
 def _repo_root() -> Path:
     for parent in Path(__file__).resolve().parents:
         if (parent / ".env.example").is_file():
@@ -40,7 +41,9 @@ def test_example_keys_match_config() -> None:
     assert _example_keys() == list(ENV_KEYS)
 
 
-def test_defaults_and_types(monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture) -> None:
+def test_defaults_and_types(
+    monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
     _isolate(monkeypatch)
     monkeypatch.setenv("ADMIN_TOKEN", "tok")
     monkeypatch.setenv("PUBLISHER_SALT", "salt")
@@ -67,7 +70,9 @@ def test_defaults_and_types(monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogC
     assert "1,000" in caplog.text
 
 
-def test_openfda_key_suppresses_warning(monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture) -> None:
+def test_openfda_key_suppresses_warning(
+    monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+) -> None:
     _isolate(monkeypatch)
     monkeypatch.setenv("ADMIN_TOKEN", "tok")
     monkeypatch.setenv("PUBLISHER_SALT", "salt")

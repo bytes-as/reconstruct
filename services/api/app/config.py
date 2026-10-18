@@ -104,7 +104,9 @@ def load_settings() -> Settings:
         eval_baseline_models=_csv(_raw("EVAL_BASELINE_MODELS", "")),
         admin_token=_raw("ADMIN_TOKEN", "").strip(),
         publisher_salt=_raw("PUBLISHER_SALT", "").strip(),
-        cors_origins=_csv(_raw("CORS_ORIGINS", "http://localhost:3001,https://your-app.vercel.app")),
+        cors_origins=_csv(
+            _raw("CORS_ORIGINS", "http://localhost:3001,https://your-app.vercel.app")
+        ),
         watch_interval_minutes=int(_raw("WATCH_INTERVAL_MINUTES", "60")),
         sandbox_ttl_minutes=int(_raw("SANDBOX_TTL_MINUTES", "120")),
         web_base_url=_raw("WEB_BASE_URL", "http://localhost:3001"),
@@ -114,7 +116,10 @@ def load_settings() -> Settings:
         logger.warning("OPENFDA_API_KEY is unset; openFDA allows 1,000 requests/day per IP")
     missing = [
         name
-        for name, value in (("ADMIN_TOKEN", settings.admin_token), ("PUBLISHER_SALT", settings.publisher_salt))
+        for name, value in (
+            ("ADMIN_TOKEN", settings.admin_token),
+            ("PUBLISHER_SALT", settings.publisher_salt),
+        )
         if not value
     ]
     if missing:

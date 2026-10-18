@@ -36,7 +36,12 @@ def load_fixture(graph: str, db: FalkorDB | None = None, path: Path | None = Non
     apply_block(graph, queries.SCHEMA_HUB, db=client)
 
     for molecule in payload["molecules"]:
-        _run(graph, queries.I1, {"key": molecule["key"], "name": molecule["name"], "unii": molecule["unii"]}, client)
+        _run(
+            graph,
+            queries.I1,
+            {"key": molecule["key"], "name": molecule["name"], "unii": molecule["unii"]},
+            client,
+        )
     for application in payload["applications"]:
         _run(
             graph,
@@ -140,7 +145,12 @@ def load_fixture(graph: str, db: FalkorDB | None = None, path: Path | None = Non
         _run(
             graph,
             queries.I9,
-            {"ndc": edge["ndc"], "source_ndc": edge["source_ndc"], "source": edge["source"], "now": now},
+            {
+                "ndc": edge["ndc"],
+                "source_ndc": edge["source_ndc"],
+                "source": edge["source"],
+                "now": now,
+            },
             client,
         )
     for fact in payload["facts"]:

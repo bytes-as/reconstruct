@@ -68,4 +68,5 @@ H0 = the moment the build starts. A = backend and graph. B = frontend, eval labe
 - G002 host ports: owner chose a separate Landfall FalkorDB on 6381 / 3010 / 8010 until the end, rather than sharing the modelbrain database. Spec ports 8000 and 3000 are restored when modelbrain is stopped.
 - Deployment (G015, G113, Vercel, Railway) is owned by Arun. The build does not block on it.
 - G080 answer key is `eval/labels.json` plus `eval/labels.sha256`. Owner will not label by hand. The file is derived from the verified fixture (no label text). G105 zolpidem held-out stays cuttable and is not in the file.
-- `HTTP_CONTACT` is `arunsin997@gmail.com` in local `.env` only. `OPENFDA_API_KEY` is set in local `.env` only. Neither value is committed. 
+- `HTTP_CONTACT` is `arunsin997@gmail.com` in local `.env` only. `OPENFDA_API_KEY` is set in local `.env` only. Neither value is committed.
+- G009 and G019: `.github/workflows/ci.yml` runs the API tests against a FalkorDB service, ruff, black, eslint, prettier, and the web build. Both goals stay open until a green Actions run on main. That needs a push, which is left to the owner. 
