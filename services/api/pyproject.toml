@@ -1,9 +1,14 @@
 [project]
 name = "landfall-api"
 version = "0.1.0"
-description = "Landfall API scaffold"
+description = "Landfall API"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+  "fastapi",
+  "uvicorn",
+  "pydantic>=2",
+  "falkordb",
+]
 
 [build-system]
 requires = ["setuptools>=68"]

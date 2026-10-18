@@ -64,4 +64,5 @@ H0 = the moment the build starts. A = backend and graph. B = frontend, eval labe
 - openFDA: `drug/ndc.json`, `drug/label.json`, `drug/drugsfda.json`: verified; rate limits verified.
 
 ## Questions for the owner
-- G001 asks for a first commit message `chore: scaffold Landfall`. The repository already had a pushed first commit, `chore: add Landfall specification and seed data` (18 Oct 2026, `34cf308`). History was not rewritten. The scaffold commit follows it. `eval/labels.json` and `eval/labels.sha256` are not in the tree until a human writes them (G080). 
+- G001 asks for a first commit message `chore: scaffold Landfall`. The repository already had a pushed first commit, `chore: add Landfall specification and seed data` (18 Oct 2026, `34cf308`). History was not rewritten. The scaffold commit follows it. `eval/labels.json` and `eval/labels.sha256` are not in the tree until a human writes them (G080).
+- G002's check is `curl localhost:8000/api/health` and the FalkorDB Browser on `localhost:3000`. Those host ports are already taken by the modelbrain Compose stack (`modelbrain-api-1`, `modelbrain-falkordb-1`). Landfall is up on `localhost:8010` and `localhost:3010` via a git-ignored override, and `/api/health` returns `falkordb: "up"`. G002 stays open until the spec ports are free or you accept the remap. 

@@ -24,6 +24,9 @@ node_modules/
 out/
 .vercel/
 
+# Local port remap while modelbrain holds 3000 and 8000
+docker-compose.override.yml
+
 # OS / editor
 .DS_Store
 *.swp
