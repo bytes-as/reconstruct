@@ -16,7 +16,7 @@ FalkorDB answers Redis on port 6379 and the FalkorDB Browser on port 3000. The A
 
 If another stack already binds 3000 or 8000, a git-ignored `docker-compose.override.yml` can publish the same services on other host ports. The containers still use 6379 and 8000 on the Compose network. Point `make smoke` at the published API with `API_URL`.
 
-DailyMed and openFDA calls go through one client in `services/api/app/sources/http.py`: a per-host rate limit, a 15 second timeout, retries, and a disk cache. `app/sources/openfda.py` reads NDC listings, Drugs@FDA applications, and label metadata. Recorded fixtures keep identifiers and dates only.
+DailyMed and openFDA calls go through one client in `services/api/app/sources/http.py`: a per-host rate limit, a 15 second timeout, retries, and a disk cache. `app/sources/openfda.py` reads NDC listings, Drugs@FDA applications, and label metadata. `app/sources/dailymed.py` lists sets, history, and archive XML. `app/sources/spl.py` turns a synthetic or live SPL into section hashes and product NDCs. Party ids come from `app/sources/slug.py`. Recorded fixtures keep identifiers and dates only.
 
 `make up` and `make down` start and stop the stack. `make test` runs the API tests against FalkorDB. `make fixture` loads the golden fixture. `make smoke` checks `/api/health`. `make seed` and `make reset-tenants` reload the fictional Bayview and Northgate graphs. `make export` writes `exports/falkordb.rdb` (git-ignored). `make eval` reports that scoring is not wired yet.
 
