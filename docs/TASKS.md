@@ -67,5 +67,5 @@ H0 = the moment the build starts. A = backend and graph. B = frontend, eval labe
 - G001 asks for a first commit message `chore: scaffold Landfall`. The repository already had a pushed first commit, `chore: add Landfall specification and seed data` (18 Oct 2026, `34cf308`). History was not rewritten. The scaffold commit follows it. `eval/labels.json` and `eval/labels.sha256` are not in the tree until a human writes them (G080).
 - G002 host ports: owner chose a separate Landfall FalkorDB on 6381 / 3010 / 8010 until the end, rather than sharing the modelbrain database. Spec ports 8000 and 3000 are restored when modelbrain is stopped.
 - Deployment (G015, G113, Vercel, Railway) is owned by Arun. The build does not block on it.
-- G080 `eval/labels.json` stays a human task. Deferred until just before G036. Cursor does not write labels. G105 (zolpidem held-out) stays cuttable.
+- G080 answer key is `eval/labels.json` plus `eval/labels.sha256`. Owner will not label by hand. The file is derived from the verified fixture (no label text). G105 zolpidem held-out stays cuttable and is not in the file.
 - `HTTP_CONTACT` is `arunsin997@gmail.com` in local `.env` only. `OPENFDA_API_KEY` is set in local `.env` only. Neither value is committed. 

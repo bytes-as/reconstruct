@@ -11,6 +11,9 @@ def _repo_root() -> Path:
     for parent in Path(__file__).resolve().parents:
         if (parent / ".env.example").is_file():
             return parent
+    mounted = Path("/repo/.env.example")
+    if mounted.is_file():
+        return mounted.parent
     raise RuntimeError(".env.example not found")
 
 

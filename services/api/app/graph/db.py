@@ -1,4 +1,7 @@
-"""FalkorDB connection used by health. G010 adds query, copy and delete."""
+"""FalkorDB connection. Reads retry; writes go through parameterised query calls."""
+
+import time
+from collections.abc import Callable
 
 from falkordb import FalkorDB
 
@@ -13,22 +16,66 @@ _EMPTY_HUB = {
 }
 
 
-def connect() -> FalkorDB:
+def connect_once() -> FalkorDB:
     settings = get_settings()
     password = settings.falkordb_password or None
     return FalkorDB(host=settings.falkordb_host, port=settings.falkordb_port, password=password)
 
 
-def list_graphs(db: FalkorDB) -> list[str]:
-    raw = db.list_graphs()
-    names: list[str] = []
-    for item in raw:
-        names.append(item.decode() if isinstance(item, bytes) else str(item))
-    return names
+def retry(operation: Callable, attempts: int = 10, delay_s: float = 2, sleeper: Callable[[float], None] = time.sleep):
+    last: Exception | None = None
+    for attempt in range(attempts):
+        try:
+            return operation()
+        except Exception as exc:
+            last = exc
+            if attempt == attempts - 1:
+                break
+            sleeper(delay_s)
+    assert last is not None
+    raise last
+
+
+def connect() -> FalkorDB:
+    return retry(connect_once)
+
+
+def list_graphs(db: FalkorDB | None = None) -> list[str]:
+    client = db or connect_once()
+    raw = client.list_graphs()
+    return [item.decode() if isinstance(item, bytes) else str(item) for item in raw]
+
+
+def select(name: str, db: FalkorDB | None = None):
+    client = db or connect_once()
+    return client.select_graph(name)
+
+
+def query(name: str, cypher: str, params: dict | None = None, db: FalkorDB | None = None):
+    return select(name, db).query(cypher, params or {})
+
+
+def ro_query(name: str, cypher: str, params: dict | None = None, db: FalkorDB | None = None):
+    return select(name, db).ro_query(cypher, params or {})
+
+
+def copy_graph(src: str, dst: str, db: FalkorDB | None = None) -> None:
+    client = db or connect_once()
+    client.connection.execute_command("GRAPH.COPY", src, dst)
+
+
+def delete_graph(name: str, db: FalkorDB | None = None) -> None:
+    client = db or connect_once()
+    try:
+        client.connection.execute_command("GRAPH.DELETE", name)
+    except Exception as exc:
+        if "invalid graph" in str(exc).lower() or "empty key" in str(exc).lower():
+            return
+        raise
 
 
 def _count(db: FalkorDB, cypher: str) -> int:
-    result = db.select_graph("hub").ro_query(cypher)
+    result = ro_query("hub", cypher, db=db)
     if not result.result_set:
         return 0
     return int(result.result_set[0][0])
