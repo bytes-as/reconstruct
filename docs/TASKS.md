@@ -68,4 +68,4 @@ H0 = the moment the build starts. A = backend and graph. B = frontend, eval labe
 - G002 host ports: owner chose a separate Landfall FalkorDB on 6381 / 3010 / 8010 until the end, rather than sharing the modelbrain database. Spec ports 8000 and 3000 are restored when modelbrain is stopped.
 - Deployment (G015, G113, Vercel, Railway) is owned by Arun. The build does not block on it.
 - G080 `eval/labels.json` stays a human task. Deferred until just before G036. Cursor does not write labels. G105 (zolpidem held-out) stays cuttable.
-- `HTTP_CONTACT` is `arunsin997@gmail.com`. `OPENFDA_API_KEY` is still empty in local `.env`; the signup mail did not include the key text. 
+- `HTTP_CONTACT` is `arunsin997@gmail.com` in local `.env` only. `OPENFDA_API_KEY` is set in local `.env` only. Neither value is committed. 
