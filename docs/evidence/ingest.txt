@@ -1,0 +1,6 @@
+montelukast sets_fetched=116 listings=118
+label_sets 116
+labels_of_record 68
+products_under_application_without_kind 0
+diff_vs_fixture labels_of_record 68 versus 69 (one fewer label of record than the 18 Oct 2026 fixture)
+
