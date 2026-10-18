@@ -5,7 +5,7 @@ The hour-by-hour summary. The complete, numbered work list with acceptance tests
 H0 = the moment the build starts. A = backend and graph. B = frontend, eval labels, video. Do not start a later block while an earlier block's acceptance criteria fail.
 
 ## Block 0 (H0-H1): scaffold, deploy "hello", fixture (G001-G019)
-- [ ] A: repo layout (BLUEPRINT 13); `docker compose up` starts FalkorDB + API; schema bootstrap; `queries.py` generated from `docs/queries.cypher` with the sync test.
+- [ ] A: repo layout (BLUEPRINT 13); `docker compose up` starts FalkorDB + API; schema bootstrap; `queries.py` generated from `docs/queries.cypher` with the sync test. G001 done 18 Oct 2026.
 - [ ] A: fixture loader: `make fixture GRAPH=hub_test` loads `data/fixtures/hub_montelukast.json` through the I-queries (counts in G016).
 - [ ] A: Railway `falkordb` (volume `/var/lib/falkordb/data`, `REDIS_ARGS`, `FALKORDB_ARGS` with `TIMEOUT 5000`, `requirepass`, private) and `api`.
 - [ ] B: Vercel project for `apps/web`; layout, nav, health dot.
@@ -64,4 +64,4 @@ H0 = the moment the build starts. A = backend and graph. B = frontend, eval labe
 - openFDA: `drug/ndc.json`, `drug/label.json`, `drug/drugsfda.json`: verified; rate limits verified.
 
 ## Questions for the owner
-- 
+- G001 asks for a first commit message `chore: scaffold Landfall`. The repository already had a pushed first commit, `chore: add Landfall specification and seed data` (18 Oct 2026, `34cf308`). History was not rewritten. The scaffold commit follows it. `eval/labels.json` and `eval/labels.sha256` are not in the tree until a human writes them (G080). 

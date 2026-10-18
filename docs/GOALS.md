@@ -9,7 +9,7 @@ Golden expectations below come from FX loaded through the I-queries and run on F
 ---
 
 ## 1. Foundation (M1)
-- [ ] **G001** Repo created during the event with the layout in BLUEPRINT section 13; first commit `chore: scaffold Landfall`. **Accept:** tree matches section 13 (empty modules allowed). **Verify:** `git log --reverse | head -3` shows an 18 Oct 2026 first commit.
+- [x] **G001** Repo created during the event with the layout in BLUEPRINT section 13; first commit `chore: scaffold Landfall`. **Accept:** tree matches section 13 (empty modules allowed). **Verify:** `git log --reverse | head -3` shows an 18 Oct 2026 first commit. Done 18 Oct 2026. `eval/labels.json` and `eval/labels.sha256` are omitted until a human writes them (G080).
 - [ ] **G002** `docker compose up` starts FalkorDB (`falkordb/falkordb:latest`, data at `/var/lib/falkordb/data`, `REDIS_ARGS=--appendonly yes`, `FALKORDB_ARGS="MAX_QUEUED_QUERIES 25 TIMEOUT 5000 RESULTSET_SIZE 10000"`) and the API. **Accept:** `curl localhost:8000/api/health` returns `falkordb:"up"`; FalkorDB Browser loads on `localhost:3000`. **Verify:** run both commands.
 - [ ] **G003** `services/api/pyproject.toml` pins fastapi, uvicorn, pydantic>=2, httpx, lxml, falkordb, apscheduler, slowapi, `mcp>=1.10,<2`, pytest, pytest-asyncio, respx. **Accept:** `pip install -e .` succeeds in a clean Python 3.12 container. **Verify:** `docker build services/api`.
 - [ ] **G004** `app/config.py` reads every variable in `.env.example` with types and defaults; missing `ADMIN_TOKEN` or `PUBLISHER_SALT` fails startup; missing `OPENFDA_API_KEY` logs a warning (1,000 requests/day limit). **Accept:** unit test. **Verify:** `pytest tests/test_config.py`.
