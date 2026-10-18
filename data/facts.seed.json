@@ -1,0 +1,47 @@
+{
+  "_readme": [
+    "Safety facts Landfall checks. Loaded into the hub with query I11 after the Scout has written the molecule and its applications.",
+    "A fact is a labeling change FDA approved on one or more reference applications, plus the section code and the short heading (phrase key) whose presence proves the change landed on a label. The phrase key is a 3-5 word heading, never label text.",
+    "status: ACTIVE facts produce verdicts. UNVERIFIED facts produce none until a pharmacist verifies them (P2, FLOWS F16). verified_note records who on the team checked the source before the event.",
+    "issued_d is days since 1970-01-01 (UTC). issued is the Drugs@FDA submission_status_date of the labeling supplement."
+  ],
+  "facts": [
+    {
+      "id": "montelukast_bw_2020",
+      "molecule_key": "montelukast",
+      "kind": "BOXED_WARNING",
+      "title": "Boxed warning: serious neuropsychiatric events (montelukast)",
+      "issued": "2020-04-29",
+      "issued_d": 18381,
+      "section_code": "34066-1",
+      "phrase_key": "WARNING: SERIOUS NEUROPSYCHIATRIC EVENTS",
+      "phrase_key_version": 1,
+      "source_url": "https://www.fda.gov/drugs/drug-safety-communications/fda-requires-boxed-warning-about-serious-mental-health-side-effects-asthma-and-allergy-drug",
+      "status": "ACTIVE",
+      "issued_on": [
+        {"application_id": "NDA020829", "supplement": "S-073", "approved": "2020-04-29"},
+        {"application_id": "NDA020830", "supplement": "S-075", "approved": "2020-04-29"},
+        {"application_id": "NDA021409", "supplement": "S-051", "approved": "2020-04-29"}
+      ],
+      "verified_note": "FDA Drug Safety Communication dated 2020-03-04 (found by web search 18 Oct 2026). Drugs@FDA submissions checked 18 Oct 2026 (class LABELING, status AP, 2020-04-29 on all three); reference label carries a coded 34066-1 section from Organon set 482dcc92 v1 onward. A team pharmacist-equivalent re-verifies at G027."
+    },
+    {
+      "id": "zolpidem_bw_2019",
+      "molecule_key": "zolpidem",
+      "kind": "BOXED_WARNING",
+      "title": "Boxed warning: complex sleep behaviors (zolpidem)",
+      "issued": "2019-08-18",
+      "issued_d": 18126,
+      "section_code": "34066-1",
+      "phrase_key": "WARNING: COMPLEX SLEEP BEHAVIORS",
+      "phrase_key_version": 1,
+      "source_url": "https://www.fda.gov/safety/medical-product-safety-information/certain-prescription-insomnia-medicines-new-boxed-warning-due-risk-serious-injuries-caused",
+      "status": "UNVERIFIED",
+      "issued_on": [
+        {"application_id": "NDA019908", "supplement": "S-046", "approved": "2019-08-18"},
+        {"application_id": "NDA021774", "supplement": "S-027", "approved": "2019-08-18"}
+      ],
+      "verified_note": "Drugs@FDA: NDA019908 (AMBIEN, holder COSETTE) S-046 and NDA021774 (AMBIEN CR) S-027 approved 2019-08-18, class LABELING. Ambien SPL v16 (Feb 2019) has no boxed warning; v17 (published 2019-09-03) has a coded 34066-1 section with the phrase. Other zolpidem reference products (Edluar, Intermezzo, Zolpimist) are not yet listed: add them at verification time. Source URL found by web search on 18 Oct 2026 (FDA safety alert page; the Drug Safety Communication itself is mirrored on cacmap.fda.gov); the verifying pharmacist opens and confirms it."
+    }
+  ]
+}

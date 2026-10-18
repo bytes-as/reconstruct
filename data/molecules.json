@@ -1,0 +1,7 @@
+{
+  "_readme": "Molecules the Scout ingests. drug_name is the DailyMed spls.json drug_name parameter; generic_name is the openFDA generic_name used for NDC Directory and Drugs@FDA searches. ingest=false molecules are ingested only after one of their facts is verified (FLOWS F16).",
+  "molecules": [
+    {"key": "montelukast", "name": "Montelukast", "drug_name": "montelukast", "generic_name": "montelukast", "unii": "MHM278SD3E", "ingest": true},
+    {"key": "zolpidem", "name": "Zolpidem", "drug_name": "zolpidem", "generic_name": "zolpidem", "unii": null, "ingest": false}
+  ]
+}

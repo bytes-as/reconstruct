@@ -1,0 +1,19 @@
+{
+  "_readme": "SPL code systems and LOINC section codes the parser uses. Source: the SPL XML of DailyMed labels (verified 18 Oct 2026).",
+  "code_systems": {
+    "loinc": "2.16.840.1.113883.6.1",
+    "ndc": "2.16.840.1.113883.6.69",
+    "unii": "2.16.840.1.113883.4.9",
+    "fda_spl_terms": "2.16.840.1.113883.3.26.1.1"
+  },
+  "sections": {
+    "34066-1": "BOXED WARNING SECTION",
+    "43685-7": "WARNINGS AND PRECAUTIONS SECTION",
+    "43683-2": "RECENT MAJOR CHANGES SECTION",
+    "42230-3": "SPL PATIENT PACKAGE INSERT SECTION",
+    "48780-1": "SPL PRODUCT DATA ELEMENTS SECTION",
+    "51945-4": "PACKAGE LABEL.PRINCIPAL DISPLAY PANEL"
+  },
+  "document_types": {"34391-3": "HUMAN PRESCRIPTION DRUG LABEL"},
+  "equivalence": {"asEquivalentEntity_classCode": "EQUIV", "path": "manufacturedProduct/manufacturedMedicine/asEquivalentEntity/definingMaterialKind/code/@code"}
+}

@@ -1,0 +1,12 @@
+{
+  "_readme": "Fictional dispensing queue for examples/pharmacy_agent (FLOWS F19). Prescriptions and patients are invented; NDCs are real public codes. Expected actions are in FLOWS F19.3.",
+  "pharmacy": "Bayview Pharmacy #12, Harbor St (fictional)",
+  "queue": [
+    {"id": "rx-001", "ndc": "68071-3355-9", "drug": "montelukast 10 mg tablet", "patient": "Patient A (fictional)"},
+    {"id": "rx-002", "ndc": "31722-726-90", "drug": "montelukast 10 mg tablet", "patient": "Patient B (fictional)"},
+    {"id": "rx-003", "ndc": "42291-622-30", "drug": "montelukast 4 mg chewable", "patient": "Patient C (fictional)"},
+    {"id": "rx-004", "ndc": "63187-626-30", "drug": "montelukast 5 mg chewable", "patient": "Patient D (fictional)"},
+    {"id": "rx-005", "ndc": "68071-5063-9", "drug": "zolpidem tartrate 10 mg tablet", "patient": "Patient E (fictional)"},
+    {"id": "rx-006", "ndc": "12345-6789-01", "drug": "unknown product", "patient": "Patient F (fictional)"}
+  ]
+}

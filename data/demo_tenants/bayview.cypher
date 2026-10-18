@@ -1,0 +1,35 @@
+// Fictional demo tenant: Bayview Community Pharmacy Group (fictional). Load into graph "tenant_bayview".
+// Load once into an EMPTY graph (the loader runs GRAPH.DELETE first): this file uses CREATE.
+// The organisation, its sites, people and inventory are FICTIONAL. NDCs are real public NDC Directory codes;
+// holding them here is invented for the demo and says nothing about any real pharmacy.
+// Rulings are NOT seeded here: the API writes them on first start (FLOWS F0.6) so they rest on real hub facts.
+CREATE (o:Org {slug:'bayview', name:'Bayview Community Pharmacy Group (fictional)', kind:'PHARMACY_CHAIN', state:'CA'})
+CREATE (t1:Team {id:'bay_team_stores', name:'Store Operations'})-[:PART_OF]->(o)
+CREATE (t2:Team {id:'bay_team_quality', name:'Quality and Compliance'})-[:PART_OF]->(o)
+CREATE (s1:Site {id:'bay_site_12', name:'Bayview Pharmacy #12, Harbor St (fictional)', kind:'RETAIL'})-[:PART_OF]->(o)
+CREATE (s2:Site {id:'bay_site_31', name:'Bayview Pharmacy #31, Elm Ave (fictional)', kind:'RETAIL'})-[:PART_OF]->(o)
+CREATE (p1:Person {id:'bay_ruth', name:'Ruth Okafor (fictional)', role:'PHARMACIST_IN_CHARGE'})-[:MEMBER_OF]->(t1)
+CREATE (p2:Person {id:'bay_daniel', name:'Daniel Reyes (fictional)', role:'PHARMACIST_IN_CHARGE'})-[:MEMBER_OF]->(t1)
+CREATE (p3:Person {id:'bay_aisha', name:'Aisha Grant (fictional)', role:'QA_LEAD'})-[:MEMBER_OF]->(t2)
+CREATE (p4:Person {id:'bay_marco', name:'Marco Lin (fictional)', role:'BUYER'})-[:MEMBER_OF]->(t2)
+CREATE (p1)-[:RESPONSIBLE_FOR {from:'2026-01-05'}]->(s1)
+CREATE (p2)-[:RESPONSIBLE_FOR {from:'2025-11-17'}]->(s2)
+CREATE (fe1:FormularyEntry {id:'bay_fe_montelukast_10', molecule_key:'montelukast', form:'TABLET, FILM COATED', strength:'10 mg/1', status:'PREFERRED', title:'Montelukast 10 mg tablet, preferred supplier list'})
+CREATE (fe2:FormularyEntry {id:'bay_fe_montelukast_chew', molecule_key:'montelukast', form:'TABLET, CHEWABLE', strength:'4 mg/1 and 5 mg/1', status:'ALLOWED', title:'Montelukast chewable tablets, supplier list'})
+CREATE (p3)-[:OWNS {from:'2026-02-01'}]->(fe1)
+CREATE (p3)-[:OWNS {from:'2026-02-01'}]->(fe2)
+CREATE (si1:StockItem {id:'bay_si_1', ndc:'68071-3355-9', product_ndc:'68071-3355', display_name:'Montelukast 10 mg tablet, 90 count (NuCare repackaged)', qty_band:'10-50'})-[:AT]->(s1)
+CREATE (si2:StockItem {id:'bay_si_2', ndc:'63187-626-30', product_ndc:'63187-626', display_name:'Montelukast 5 mg chewable, 30 count (Proficient Rx repackaged)', qty_band:'1-10'})-[:AT]->(s1)
+CREATE (si3:StockItem {id:'bay_si_3', ndc:'42291-622-30', product_ndc:'42291-622', display_name:'Montelukast 4 mg chewable, 30 count (AvKARE)', qty_band:'10-50'})-[:AT]->(s2)
+CREATE (si4:StockItem {id:'bay_si_4', ndc:'31722-726-90', product_ndc:'31722-726', display_name:'Montelukast 10 mg tablet, 90 count (Camber)', qty_band:'50+'})-[:AT]->(s2)
+CREATE (si5:StockItem {id:'bay_si_5', ndc:'16729-119-15', product_ndc:'16729-119', display_name:'Montelukast 10 mg tablet (Accord)', qty_band:'10-50'})-[:AT]->(s2)
+CREATE (si1)-[:LISTED_AS]->(fe1)
+CREATE (si4)-[:LISTED_AS]->(fe1)
+CREATE (si5)-[:LISTED_AS]->(fe1)
+CREATE (si2)-[:LISTED_AS]->(fe2)
+CREATE (si3)-[:LISTED_AS]->(fe2)
+CREATE (:Playbook {kind:'REVIEW_RULING', steps:['Open the trace and read which label version and section the ruling rests on','Compare the new hub verdict with the old one','Propose the new ruling for the owner']})
+CREATE (:Playbook {kind:'APPROVE_RULING', steps:['Read the proposed verdict and its basis','Approve to supersede the old ruling, or reject with a reason','If NOT_LANDED, open a PHARMACIST_REVIEW task for the site']})
+CREATE (:Playbook {kind:'PHARMACIST_REVIEW', steps:['Open the current reference label on DailyMed from the link','Make sure patients receive the current Medication Guide','Consider a supplier whose label of record carries the coded boxed warning (Alternatives panel)','Record what you did as an event']})
+CREATE (:Playbook {kind:'CONFIRM_CHECK', steps:['Open the rendered DailyMed label version from the link','Look for the boxed-warning section and the phrase key','Confirm what you see: CARRIES_CODED, CARRIES_UNCODED or ABSENT']})
+CREATE (:Playbook {kind:'APPROVE_NOTICE', steps:['Read the draft notice; it must state facts only (version, date, section)','Approve to mark it ready to copy; Landfall never sends it','Send it yourself through the labeler contact or MedWatch if you choose']});

@@ -1,0 +1,15 @@
+---
+description: Landfall project rules (always on)
+alwaysApply: true
+---
+
+- Start with `BLUEPRINT.md` section 0 (document map). Rules: `AGENTS.md`. Work list: `docs/GOALS.md` (140 goals). Flows: `docs/FLOWS.md`. Contract: `docs/API.md`. Pages and wording: `docs/UI.md`. Cypher: `docs/queries.cypher`. Hackathon rules mapping: `docs/REQUIREMENTS.md`. Golden fixture: `data/fixtures/hub_montelukast.json`.
+- FalkorDB decides every verdict through the Cypher in `docs/queries.cypher` (V1 gate, V2 scope, V4 class). LLMs only phrase explanations or drafts, and the product must work with no LLM key.
+- Landfall never sends anything outward; drafts become "ready to copy" after a human approves.
+- Append-only versions, landing events, rulings, decisions and events. Bounded variable-length paths only.
+- Never store label text in the repo or the graph; section code 34066-1 plus the phrase key decide carries; SPL test files are synthetic.
+- Red verdicts only behind an active NDC Directory listing; strict mode needs a pharmacist-confirmed absence (tier >= 2).
+- FalkorDB is the heart: every answer and every memory write goes through FalkorDB. The MCP SDK is pinned `mcp>=1.10,<2`. FalkorDB `TIMEOUT 5000`.
+- Wording: "the DailyMed label of record (version N, date) lacks a coded boxed-warning section"; never "non-compliant", "violation", "illegal", "negligent", "failed to"; always show the disclaimer.
+- Do not write `eval/labels.json`; a human writes it.
+- Keep the hour-8 core (G035-G054) working; follow the cut order in BLUEPRINT.md sections 14 and 18 if behind.

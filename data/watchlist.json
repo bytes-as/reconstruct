@@ -1,0 +1,21 @@
+{
+  "_readme": "Extra SPL sets the Watcher polls besides L3 (every label of record in scope of an active fact) and the sets behind tenant stock items. These are the 13 montelukast labels of record that lack the boxed warning, the 2 that carry it uncoded, and the main source labels they copy (as of 16 Oct 2026).",
+  "set_ids": [
+    "549f1d1a-81f5-29f5-e054-00144ff8d46c",
+    "56429f04-97b6-06a9-e054-00144ff88e88",
+    "566a8fd7-fc00-2297-e054-00144ff8d46c",
+    "07d5fbea-b183-41c9-a20f-30da1f44ab1b",
+    "0f2dbf17-bce0-4e09-8c22-898d93be80da",
+    "2ce48faf-4504-488a-8b20-3e8d4f008fb2",
+    "54014b67-3163-4c8f-b93a-229cd231ca6b",
+    "83c35a3d-0bbc-4598-bf76-ab0c2903bf19",
+    "8a724790-e1fb-4935-bb28-ce99455be5ef",
+    "901385e5-7384-4c28-a36a-7dd84c36f5fd",
+    "9705627c-283e-4743-b261-cfeb88d96e9b",
+    "97cc4e1e-e0fd-4bb5-8f9e-b8573f5230e5",
+    "cab84c43-96a3-4868-88da-3126685edf00",
+    "ed2caffa-a75c-1c27-ae30-2d8280eaea7d",
+    "2f90a573-27fd-cc16-f3d1-8c4d630224a0",
+    "6eea668f-a2fa-447f-b2d5-4c754d13d9fa"
+  ]
+}

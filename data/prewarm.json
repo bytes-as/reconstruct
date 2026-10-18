@@ -1,0 +1,10 @@
+{
+  "_readme": "What startup prewarm ingests (FLOWS F0.7) and which NDCs smoke.sh checks. Molecules come from molecules.json (ingest=true).",
+  "molecules": ["montelukast"],
+  "demo_ndcs": ["68071-3355-9", "63187-626-30", "42291-622-30", "31722-726-90", "16729-119-15",
+                "63187-781-30", "50268-574-15", "29300-220-13", "68071-4034-9"],
+  "replay_presets": [
+    {"label": "Accord (ANDA holder)", "set_id": "6eea668f-a2fa-447f-b2d5-4c754d13d9fa", "from": "2021-03-01"},
+    {"label": "AvKARE", "set_id": "ed2caffa-a75c-1c27-ae30-2d8280eaea7d", "from": "2025-01-01"}
+  ]
+}
