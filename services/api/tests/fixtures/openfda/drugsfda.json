@@ -1,0 +1,28 @@
+{
+  "meta": {"results": {"skip": 0, "limit": 1, "total": 1}},
+  "results": [
+    {
+      "application_number": "ANDA203037",
+      "sponsor_name": "PHARMOBEDIENT",
+      "products": [
+        {
+          "brand_name": "SYNTHETIC",
+          "dosage_form": "TABLET, CHEWABLE",
+          "marketing_status": "Prescription",
+          "reference_drug": "No",
+          "reference_standard": "No",
+          "active_ingredients": [{"name": "MONTELUKAST SODIUM", "strength": "5MG"}]
+        }
+      ],
+      "submissions": [
+        {
+          "submission_type": "SUPPL",
+          "submission_number": "1",
+          "submission_status": "AP",
+          "submission_status_date": "20200101",
+          "submission_class_code": "LABELING"
+        }
+      ]
+    }
+  ]
+}

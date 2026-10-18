@@ -1,0 +1,19 @@
+{
+  "meta": {"results": {"skip": 0, "limit": 100, "total": 2}},
+  "results": [
+    {
+      "set_id": "549f1d1a-81f5-29f5-e054-00144ff8d46c",
+      "id": "doc-current",
+      "version": "5",
+      "effective_time": "20240711",
+      "openfda": {
+        "application_number": ["ANDA202717"],
+        "manufacturer_name": ["NuCare Pharmaceuticals,Inc."],
+        "product_ndc": ["68071-3355"],
+        "package_ndc": ["68071-3355-9"],
+        "spl_set_id": ["549f1d1a-81f5-29f5-e054-00144ff8d46c"],
+        "generic_name": ["montelukast sodium"]
+      }
+    }
+  ]
+}

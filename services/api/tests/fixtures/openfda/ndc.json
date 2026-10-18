@@ -1,0 +1,18 @@
+{
+  "meta": {"results": {"skip": 0, "limit": 1, "total": 1}},
+  "results": [
+    {
+      "product_ndc": "68071-3355",
+      "labeler_name": "NuCare Pharmaceuticals,Inc.",
+      "application_number": "ANDA202717",
+      "marketing_category": "ANDA",
+      "dosage_form": "TABLET, FILM COATED",
+      "active_ingredients": [{"name": "MONTELUKAST SODIUM", "strength": "10 mg/1"}],
+      "listing_expiration_date": "20271231",
+      "marketing_start_date": "20140715",
+      "spl_id": "doc-current",
+      "packaging": [{"package_ndc": "68071-3355-9", "description": "90 TABLET IN 1 BOTTLE"}],
+      "openfda": {"spl_set_id": ["549f1d1a-81f5-29f5-e054-00144ff8d46c"]}
+    }
+  ]
+}

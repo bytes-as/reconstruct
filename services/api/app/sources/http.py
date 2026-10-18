@@ -21,9 +21,15 @@ Sleep = Callable[[float], Awaitable[None]]
 
 
 class SourceError(Exception):
-    def __init__(self, message: str, retry_after_s: int | None = None) -> None:
+    def __init__(
+        self,
+        message: str,
+        retry_after_s: int | None = None,
+        status_code: int | None = None,
+    ) -> None:
         super().__init__(message)
         self.retry_after_s = retry_after_s
+        self.status_code = status_code
 
 
 class HostLimiter:
@@ -115,19 +121,29 @@ class SourceClient:
                 continue
             if response.status_code == 429:
                 retry_after = _retry_after(response)
-                last = SourceError("source returned 429", retry_after_s=retry_after)
+                last = SourceError(
+                    "source returned 429",
+                    retry_after_s=retry_after,
+                    status_code=429,
+                )
                 if attempt == MAX_RETRIES:
                     break
                 await self.sleep(retry_after)
                 continue
             if response.status_code >= 500:
-                last = SourceError(f"source returned {response.status_code}")
+                last = SourceError(
+                    f"source returned {response.status_code}",
+                    status_code=response.status_code,
+                )
                 if attempt == MAX_RETRIES:
                     break
                 await self.sleep(BACKOFF_S[attempt])
                 continue
             if response.status_code >= 400:
-                raise SourceError(f"source returned {response.status_code}")
+                raise SourceError(
+                    f"source returned {response.status_code}",
+                    status_code=response.status_code,
+                )
             return response.content
         raise SourceError(str(last) if last else "source request failed", retry_after_s=retry_after)
 
